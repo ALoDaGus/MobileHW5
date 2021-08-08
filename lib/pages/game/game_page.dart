@@ -70,7 +70,7 @@ class _GamePageState extends State<GamePage> {
                             color: Colors.teal[700], // สีไอคอน
                           ),
                           Icon(
-                            Icons.star_half, // รูปไอคอน
+                            Icons.star_outline, // รูปไอคอน
                             size: 20.0, // ขนาดไอคอน
                             color: Colors.teal[700], // สีไอคอน
                           ),
