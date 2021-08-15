@@ -1,5 +1,3 @@
-import 'dart:html';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 
@@ -25,8 +23,8 @@ class _GamePageState extends State<GamePage> {
           style: ElevatedButton.styleFrom(
             shape: CircleBorder(),
             padding: EdgeInsets.all(35),
-            primary: Colors.teal[100], // <-- Button color
-            onPrimary: Colors.teal, // <-- Splash color
+            primary: Colors.teal[100],
+            onPrimary: Colors.teal,
           ),
         ),
       );
@@ -58,6 +56,7 @@ class _GamePageState extends State<GamePage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
+            width: 250,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
                 border: Border.all(
