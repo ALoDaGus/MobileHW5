@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import 'pages/game/game_page.dart';
+import 'pages/game/hw6game_page.dart';
 
 void main() {
   
