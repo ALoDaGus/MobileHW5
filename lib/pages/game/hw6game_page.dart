@@ -1,6 +1,3 @@
-import 'dart:html';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class GamePage extends StatefulWidget {
@@ -11,40 +8,69 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
+  int myCount = 0;
+  List<Widget> myList = [
+    Text('กรุณาใส่รหัสผ่าน',
+        style: TextStyle(fontSize: 20.0, color: Colors.teal[900])),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    var numButton = (int num) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 7.0),
-        child: ElevatedButton(
-          onPressed: () {},
-          child: Text(
-            (num).toString(),
-            style: TextStyle(fontSize: 30),
-          ),
-          style: ElevatedButton.styleFrom(
-            shape: CircleBorder(),
-            padding: EdgeInsets.all(35),
-            primary: Colors.teal[100], // <-- Button color
-            onPrimary: Colors.teal, // <-- Splash color
-          ),
-        ),
-      );
-    };
+    void myStr() {
+      setState(() {
+        if (myCount <= 0) {
+          this.myList = [
+            Text('กรุณาใส่รหัสผ่าน',
+                style: TextStyle(fontSize: 20.0, color: Colors.teal[900]))
+          ];
+        } else if(myCount <= 18) {
+          this.myList = [];
+          for (int i = 0; i < myCount; i++) {
+            myList.add(Icon(Icons.circle, size: 10,));
+          }
+        }
+      });
+    }
 
-    var deleteButton = () {
-      return Padding(
-        padding: const EdgeInsets.all(7.0),
-        child: TextButton(
-          onPressed: () {},
-          child: Icon(
-            Icons.backspace_outlined,
-            size: 30,
-            color: Colors.teal[100],
+    void increaseCount() => setState(() {
+          myCount++;
+          myStr();
+        });
+    void decreaseCount() => setState(() {
+          if (myCount > 0) {
+            myCount--;
+            myStr();
+          }
+        });
+
+    Widget numButton(int num) => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 7.0),
+          child: ElevatedButton(
+            onPressed: increaseCount,
+            child: Text(
+              (num).toString(),
+              style: TextStyle(fontSize: 30),
+            ),
+            style: ElevatedButton.styleFrom(
+              shape: CircleBorder(),
+              padding: EdgeInsets.all(35),
+              primary: Colors.teal[100],
+              onPrimary: Colors.teal,
+            ),
           ),
-        ),
-      );
-    };
+        );
+
+    var deleteButton = () => Padding(
+          padding: const EdgeInsets.all(7.0),
+          child: TextButton(
+            onPressed: decreaseCount,
+            child: Icon(
+              Icons.backspace_outlined,
+              size: 30,
+              color: Colors.teal[100],
+            ),
+          ),
+        );
 
     return Container(
       decoration: BoxDecoration(
@@ -57,26 +83,33 @@ class _GamePageState extends State<GamePage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Container(
-            decoration: BoxDecoration(
+          SizedBox(
+            width: 290,
+            height: 150,
+            child: Container(
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
                 border: Border.all(
                   color: Colors.teal[900]!,
                   width: 4,
-                )),
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-              child: Column(
-                children: [
-                  Icon(Icons.lock_outline, size: 60.0, color: Colors.teal[900]),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Text('กรุณาใส่รหัสผ่าน',
-                        style:
-                            TextStyle(fontSize: 20.0, color: Colors.teal[900])),
-                  ),
-                ],
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 20.0, horizontal: 50.0),
+                child: Column(
+                  children: [
+                    Icon(Icons.lock_outline,
+                        size: 60.0, color: Colors.teal[900]),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: myList,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

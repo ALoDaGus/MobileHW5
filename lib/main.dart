@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 
@@ -11,21 +10,6 @@ void main() {
   //  runApp(centerWidget);
 
    runApp(MyApp());
-}
-
-class myText extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var rand = new Random().nextInt(100);
-
-    var textStyle = new TextStyle(fontSize: 127, color: Colors.green[300]);
-    return Text(
-        rand.toString(), 
-        textDirection: TextDirection.ltr,
-        style: textStyle,
-    );
-  }
-
 }
 
 class MyApp extends StatelessWidget {
