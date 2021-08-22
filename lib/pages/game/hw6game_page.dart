@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class GamePage extends StatefulWidget {
@@ -9,107 +8,82 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
+  List<int> list = [1, 2, 3];
+  bool showNumber = true;
+  String pic = 'assets/images/p.png';
+
+  _handleClickButton() {
+    setState(() {
+      list = list.map((e) => e + 1).toList();
+    });
+  }
+
+  _handleClickButton2() {
+    setState(() {
+      // list.add(list.last + 1);
+      showNumber = !showNumber;
+    });
+  }
+
+  _changePic() {
+    setState(() {
+      pic = 'assets/images/op.png';
+      print('test2');
+    });
+  }
+
+  _changePic2() {
+    setState(() {
+      pic = 'assets/images/p.png';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    var numButton = (int num) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 7.0),
-        child: ElevatedButton(
-          onPressed: () {},
-          child: Text(
-            (num).toString(),
-            style: TextStyle(fontSize: 30),
-          ),
-          style: ElevatedButton.styleFrom(
-            shape: CircleBorder(),
-            padding: EdgeInsets.all(35),
-            primary: Colors.teal[100],
-            onPrimary: Colors.teal,
-          ),
-        ),
-      );
-    };
-
-    var deleteButton = () {
-      return Padding(
-        padding: const EdgeInsets.all(7.0),
-        child: TextButton(
-          onPressed: () {},
-          child: Icon(
-            Icons.backspace_outlined,
-            size: 30,
-            color: Colors.teal[100],
-          ),
-        ),
-      );
-    };
-
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-          colors: [Colors.teal[100]!, Colors.teal],
-        ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Container(
-            width: 250,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(
-                  color: Colors.teal[900]!,
-                  width: 4,
-                )),
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-              child: Column(
-                children: [
-                  Icon(Icons.lock_outline, size: 60.0, color: Colors.teal[900]),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Text('กรุณาใส่รหัสผ่าน',
-                        style:
-                            TextStyle(fontSize: 20.0, color: Colors.teal[900])),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Container(
+    return Scaffold(
+      body: GestureDetector(
+        onTapDown: (_) {
+          setState(() {
+            pic = 'assets/images/op.png';
+          });
+        },
+        onTapUp: (_) {
+          setState(() {
+            pic = 'assets/images/p.png';
+          });
+        },
+        child: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+            image: AssetImage(pic),
+            fit: BoxFit.cover,
+          )),
+          child: Center(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                for (var i = 0; i < 3; i++)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      for (var j = 1; j <= 3; j++) numButton((i * 3 + j) % 10)
-                    ],
-                  ),
+                if (showNumber)
+                  for (var item in list)
+                    Text(item.toString(), style: TextStyle(fontSize: 30)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.only(right: 70.0),
+                    TextButton(
+                        onPressed: _handleClickButton, child: Text('TEST')),
+                    SizedBox(width: 30),
+                    Stack(
+                      children: [
+                        TextButton(
+                            onPressed: _handleClickButton2,
+                            child: Text('TEST2'))
+                      ],
                     ),
-                    numButton(0),
-                    deleteButton()
                   ],
-                ),
+                )
               ],
             ),
           ),
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              'ลืมรหัสผ่าน',
-              style: TextStyle(color: Colors.teal[100]),
-            ),
-          )
-        ],
+        ),
       ),
     );
   }

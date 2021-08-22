@@ -1,5 +1,17 @@
 void main() {
   
+  List list = [1, 2, 3, 4];
+  list.forEach((element) {
+    print(element);
+  });
+
+  List list2 = list.map((i) => {
+    'data': i
+  }).toList();
+
+  print(list2);
+
+
   List<Map<String, dynamic>> reportList = [
     {'date': '1กค', 'case': 5533, 'death': 57},
     {'date': '2กค', 'case': 6087, 'death': 61},
@@ -8,6 +20,6 @@ void main() {
     {'date': '5กค', 'case': 6166, 'death': 50},
   ];
 
-  reportList.forEach((Map<String, dynamic> i) => print('วันที่ ${i['date']}, ติดเชื้อ ${i['case']}, เสียชีวิต ${i['death']}'));
+  // reportList.forEach((Map<String, dynamic> i) => print('วันที่ ${i['date']}, ติดเชื้อ ${i['case']}, เสียชีวิต ${i['death']}'));
 
 }
