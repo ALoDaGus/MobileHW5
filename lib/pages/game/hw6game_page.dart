@@ -13,6 +13,14 @@ class _GamePageState extends State<GamePage> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    _underLine() => const Divider(
+          height: 20,
+          thickness: 5,
+          indent: 20,
+          endIndent: 20,
+        );
     _incressNumber(int number) {
       setState(() {
         currentNumber += number;
@@ -25,22 +33,39 @@ class _GamePageState extends State<GamePage> {
       return false;
     }
 
-    _buttonNumber(number, color, turn) {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ElevatedButton(
-          onPressed: turn && !_isEnd() ? () => _incressNumber(number) : null,
-          style: ElevatedButton.styleFrom(
-            primary: color,
-            padding: EdgeInsets.symmetric(horizontal: 60.0),
+    _buttonNumber(number, color, turn) => Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ElevatedButton(
+            onPressed: turn && !_isEnd() ? () => _incressNumber(number) : null,
+            style: ElevatedButton.styleFrom(
+              primary: color,
+              padding: EdgeInsets.symmetric(
+                  horizontal: (screenWidth / 12) + 10, vertical: 5.0),
+            ),
+            child: Text(
+              number.toString(),
+              style: TextStyle(fontSize: 40.0),
+            ),
           ),
-          child: Text(
-            number.toString(),
-            style: TextStyle(fontSize: 40.0),
-          ),
-        ),
-      );
-    }
+        );
+
+    _centerWidget(color, turn) => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              currentNumber.toString(),
+              style: TextStyle(
+                  fontSize: 70.0,
+                  color: color,
+                  decoration: TextDecoration.none),
+            ),
+            Icon(
+              Icons.keyboard_arrow_down,
+              size: 60.0,
+              color: turn == true ? color : Colors.grey,
+            ),
+          ],
+        );
 
     return Container(
       decoration: const BoxDecoration(
@@ -53,11 +78,14 @@ class _GamePageState extends State<GamePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [3, 2, 1]
-                    .map((e) => _buttonNumber(e, Colors.red, !turn))
-                    .toList()),
+            RotatedBox(
+              quarterTurns: 2,
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [1, 2, 3]
+                      .map((e) => _buttonNumber(e, Colors.red, !turn))
+                      .toList()),
+            ),
             Expanded(
               child: Container(
                 width: double.infinity,
@@ -83,7 +111,10 @@ class _GamePageState extends State<GamePage> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: ElevatedButton(
-                              onPressed: () => setState(() => currentNumber = 0),
+                              onPressed: () => setState(() {
+                                currentNumber = 0;
+                                turn = true;
+                              }),
                               style: ElevatedButton.styleFrom(
                                 primary: turn ? Colors.blue : Colors.red,
                               ),
@@ -111,32 +142,16 @@ class _GamePageState extends State<GamePage> {
                             ],
                           ), //stars
                           Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.keyboard_arrow_up,
-                                  size: 60.0,
-                                  color: turn == false
-                                      ? Colors.black
-                                      : Colors.grey,
-                                ),
-                                Text(
-                                  currentNumber.toString(),
-                                  style: TextStyle(
-                                      fontSize: 70.0,
-                                      color: Colors.black,
-                                      decoration: TextDecoration.none),
-                                ),
-                                Icon(
-                                  Icons.keyboard_arrow_down,
-                                  size: 60.0,
-                                  color:
-                                      turn == true ? Colors.black : Colors.grey,
-                                ),
-                              ],
-                            ),
-                          )
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              RotatedBox(
+                                  quarterTurns: 2,
+                                  child: _centerWidget(Colors.red, !turn)),
+                              _underLine(),
+                              _centerWidget(Colors.blue, turn)
+                            ],
+                          )),
                         ],
                       ),
               ),
