@@ -21,6 +21,7 @@ class _GamePageState extends State<GamePage> {
           indent: 20,
           endIndent: 20,
         );
+        
     _incressNumber(int number) {
       setState(() {
         currentNumber += number;
@@ -55,13 +56,13 @@ class _GamePageState extends State<GamePage> {
             Text(
               currentNumber.toString(),
               style: TextStyle(
-                  fontSize: 70.0,
+                  fontSize: 90.0,
                   color: color,
                   decoration: TextDecoration.none),
             ),
             Icon(
               Icons.keyboard_arrow_down,
-              size: 60.0,
+              size: 80.0,
               color: turn == true ? color : Colors.grey,
             ),
           ],
@@ -97,14 +98,14 @@ class _GamePageState extends State<GamePage> {
                           Text(
                             turn ? 'BLUE' : 'RED',
                             style: TextStyle(
-                                fontSize: 70.0,
+                                fontSize: 90.0,
                                 color: turn ? Colors.blue : Colors.red,
                                 decoration: TextDecoration.none),
                           ),
                           Text(
                             'WIN !',
                             style: TextStyle(
-                                fontSize: 50.0,
+                                fontSize: 70.0,
                                 color: turn ? Colors.blue : Colors.red,
                                 decoration: TextDecoration.none),
                           ),
@@ -120,7 +121,7 @@ class _GamePageState extends State<GamePage> {
                               ),
                               child: Text(
                                 'NEW GAME',
-                                style: TextStyle(fontSize: 20.0),
+                                style: TextStyle(fontSize: 40.0),
                               ),
                             ),
                           ),
@@ -133,11 +134,14 @@ class _GamePageState extends State<GamePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               for (var i = 0; i < 20; i++)
-                                Icon(
-                                  (i < currentNumber
-                                      ? Icons.star_rate
-                                      : Icons.star_border_outlined),
-                                  color: Colors.deepPurpleAccent,
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 13.0),
+                                  child: Icon(
+                                    (i < currentNumber
+                                        ? Icons.star_rate
+                                        : Icons.star_border_outlined),
+                                    color: Colors.deepPurpleAccent,
+                                  ),
                                 )
                             ],
                           ), //stars
