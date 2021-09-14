@@ -117,7 +117,7 @@ class _GamePageState extends State<GamePage> {
 
   Widget _buildInputPanel() {
     return Card(
-      color: Colors.teal[100],
+      color: Colors.teal[200],
       elevation: 10.0,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -204,3 +204,34 @@ class _GamePageState extends State<GamePage> {
     );
   }
 }
+
+// TextField(
+//   controller: <ตัวแปรที่เป็น TextEditingController>
+//   keyboardType: TextInputType.number,
+//   style: const TextStyle(
+//     color: Colors.yellow,
+//     fontSize: 24.0,
+//     fontWeight: FontWeight.bold,
+//   ),
+//   cursorColor: Colors.yellow,
+//   textAlign: TextAlign.center,
+//   decoration: InputDecoration(
+//     contentPadding: EdgeInsets.all(10.0),
+//     isDense: true,
+//     // กำหนดลักษณะเส้น border ของ TextField ในสถานะปกติ
+//     enabledBorder: UnderlineInputBorder(
+//       borderSide: BorderSide(
+//         color: Colors.white.withOpacity(0.5),
+//       ),
+//     ),
+//     // กำหนดลักษณะเส้น border ของ TextField เมื่อได้รับโฟกัส
+//     focusedBorder: const UnderlineInputBorder(
+//       borderSide: BorderSide(color: Colors.white),
+//     ),
+//     hintText: 'Enter the number here',
+//     hintStyle: TextStyle(
+//       color: Colors.white.withOpacity(0.5),
+//       fontSize: 16.0,
+//     ),
+//   ),
+// )
