@@ -163,7 +163,7 @@ class _GamePageState extends State<GamePage> {
                     _feedback = 'TOO LOW!';
                   }
                 }
-                _controller.clear();
+                 _controller.clear();
               }),
               child: Text('GUESS'),
             ),
