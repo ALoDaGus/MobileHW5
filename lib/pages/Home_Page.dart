@@ -71,11 +71,14 @@ class _Home_PageState extends State<Home_Page> {
           Expanded(
             child: Center(child: Text(currentFoodPage == 0 ? 'FOOD MENU' : 'YOUR ORDER')),
           ),
-          Row(
-            children: [
-              foodButton(Icons.menu, 'Menu', 0),
-              foodButton(Icons.shopping_cart, 'Your Orders', 1),
-            ],
+          Card(
+            elevation: 5.0,
+            child: Row(
+              children: [
+                foodButton(Icons.menu, 'Menu', 0),
+                foodButton(Icons.shopping_cart, 'Your Orders', 1),
+              ],
+            ),
           )
         ],
       ) : ProfilePage(),
@@ -89,10 +92,13 @@ class _Home_PageState extends State<Home_Page> {
           currentFoodPage = page == 0 ? 0:1
           ),
       borderRadius: BorderRadius.all(Radius.circular(5.0)),
-      child: Column(children: [
-        Icon(icons, color: page == currentFoodPage ? Colors.teal[700]: Colors.grey,),
-        Text(title, style: TextStyle(fontSize: 12.0, color: page == currentFoodPage ? Colors.teal[700]: Colors.grey,),)
-      ],),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(children: [
+          Icon(icons, color: page == currentFoodPage ? Colors.teal[700]: Colors.grey,),
+          Text(title, style: TextStyle(fontSize: 12.0, color: page == currentFoodPage ? Colors.teal[700]: Colors.grey,),)
+        ],),
+      ),
     )
   ,);
 
