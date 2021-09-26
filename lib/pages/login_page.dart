@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
+  static const routeName = '/login';
+
   const LoginPage({Key? key}) : super(key: key);
 
   @override
@@ -155,10 +157,11 @@ class _LoginPageState extends State<LoginPage> {
 
       if (input.length >= 6) {
         if (input == correctpw) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => Home_Page()),
-          );
+          // Navigator.pushReplacement(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => Home_Page()),
+          // );
+          Navigator.pushReplacementNamed(context, Home_Page.routeName);
         } else {
           _showMaterialDialog();
           input = '';

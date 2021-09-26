@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hw04/pages/Home_Page.dart';
 import 'package:hw04/pages/login_page.dart';
 
 import 'pages/game/game_page.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.teal,
-        fontFamily: 'Gluten',
+        fontFamily: 'architectsDaughter',
         textTheme: TextTheme(
           headline1: GoogleFonts.architectsDaughter(fontSize: 78.6, color: Colors.teal[800]),
           bodyText2: GoogleFonts.architectsDaughter(fontSize: 33.3, color: Colors.teal[800]),
@@ -30,6 +31,11 @@ class MyApp extends StatelessWidget {
         )
       ),
       home: LoginPage(),
+      routes: {
+        LoginPage.routeName: (context) => const LoginPage(),
+        Home_Page.routeName: (context) => const Home_Page(),
+      },
+      initialRoute: '/login',
     );
   }
 
