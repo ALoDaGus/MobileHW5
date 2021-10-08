@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hw04/pages/Home_Page.dart';
 import 'package:hw04/pages/login_page.dart';
 
+import 'pages/food_page.dart';
 import 'pages/game/game_page.dart';
 
 void main() {
@@ -34,8 +35,9 @@ class MyApp extends StatelessWidget {
       routes: {
         LoginPage.routeName: (context) => const LoginPage(),
         Home_Page.routeName: (context) => const Home_Page(),
+        food_page.routeName: (context) => const food_page(),
       },
-      initialRoute: '/login',
+      initialRoute: '/homepage',
     );
   }
 
