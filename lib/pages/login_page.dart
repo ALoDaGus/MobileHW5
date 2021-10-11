@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import 'home_page.dart';
 
@@ -14,7 +17,23 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   var input = '';
-  final correctpw = '123456';
+  // final correctpw = '123456';
+
+  // Future<bool> _loginApi(String pw) async {
+  //   var url = Uri.parse('https://cpsu-test-api.herokuapp.com/login');
+  //   var response = await http.post(url, body: {'pin': pw});
+  //   Map<String, dynamic> jsonBody = json.decode(response.body);
+
+  //   String status = jsonBody['status'];
+  //   String? message = jsonBody['message'];
+  //   bool correct = jsonBody['data'];
+
+  //   if(correct)
+  //         Navigator.pushReplacementNamed(context, Home_Page.routeName);
+
+  //   return correct;
+    
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +61,10 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
-                        //icon:png, background:jpg
-                        Icons.lock_outlined,
-                        size: 100.0,
-                        color: Colors.teal[700]
-                      ),
+                          //icon:png, background:jpg
+                          Icons.lock_outlined,
+                          size: 100.0,
+                          color: Colors.teal[700]),
                       Text(
                         'LOGIN',
                         style: Theme.of(context).textTheme.headline1,
@@ -146,25 +164,37 @@ class _LoginPageState extends State<LoginPage> {
     return input == '123456';
   }*/
 
-  void _handleClickButton(int num) {
+  Future<void> _handleClickButton(int num) async {
     print('hello $num');
-    setState(() {
       if (num == -1) {
-        if (input.length > 0) input = input.substring(0, input.length - 1);
+        if (input.length > 0) setState(() => input = input.substring(0, input.length - 1));
       } else {
-        input = '$input$num';
+        setState(() => input = '$input$num');
       }
 
       if (input.length >= 6) {
-        if (input == correctpw) {
+        var url = Uri.parse('https://cpsu-test-api.herokuapp.com/login');
+        var respons = await http.post(url, body: {'pin':input});
+
+        if (respons.statusCode == 200) {
           // Navigator.pushReplacement(
           //   context,
           //   MaterialPageRoute(builder: (context) => Home_Page()),
           // );
-          Navigator.pushReplacementNamed(context, Home_Page.routeName);
+
+          Map<String, dynamic> jsonBody = json.decode(respons.body);
+          String status = jsonBody['status'];
+          String? message = jsonBody['message'];
+          bool correct = jsonBody['data'];
+          if(correct)
+            Navigator.pushReplacementNamed(context, Home_Page.routeName);
+          else{
+            _showMaterialDialog(1);
+            setState(() => input = '');
+          }
         } else {
-          _showMaterialDialog();
-          input = '';
+          _showMaterialDialog(0);
+          setState(() => input = '');
         }
       }
       /*input = num >= 0
@@ -172,10 +202,9 @@ class _LoginPageState extends State<LoginPage> {
           : (input.length > 0
             ? input.substring(0, input.length-1)
             : input);*/
-    });
   }
 
-  void _showMaterialDialog() {
+  void _showMaterialDialog(int type) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -183,7 +212,7 @@ class _LoginPageState extends State<LoginPage> {
           title: Text('ERROR'),
           content: Container(
             height: 100.0,
-            child: Text('Invalid PIN Please try again.'),
+            child: Text(type == 1 ?'Invalid PIN Please try again.' : 'api fail.'),
           ),
           actions: [
             // ปุ่ม OK ใน dialog
@@ -249,7 +278,8 @@ class LoginButton extends StatelessWidget {
                   style: Theme.of(context).textTheme.headline6,
                 )
               : (number == -1
-                  ? Icon(Icons.backspace_outlined, size: 28.0, color: Colors.teal[800])
+                  ? Icon(Icons.backspace_outlined,
+                      size: 28.0, color: Colors.teal[800])
                   : SizedBox.shrink()),
         ),
       ),

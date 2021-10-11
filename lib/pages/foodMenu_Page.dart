@@ -13,7 +13,7 @@ class _foodMenu_PageState extends State<foodMenu_Page> {
     FoodItem(id: 2, name: "ข้าวหมูแดง", price: 30, image: "kao_moo_dang"),
     FoodItem(id: 3, name: "ข้าวมันไก่", price: 30, image: "kao_mun_kai"),
     FoodItem(id: 4, name: "ข้าวหน้าเป็ด", price: 30, image: "kao_na_ped"),
-    FoodItem(id: 5, name: "ข้าวผัด", price: 30, image: "Kao_pad"),
+    FoodItem(id: 5, name: "ข้าวผัด", price: 30, image: "kao_pad"),
     FoodItem(id: 6, name: "ผัดซิอิ๊ว", price: 30, image: "pad_sie_eew"),
     FoodItem(id: 7, name: "ผัดไทย", price: 30, image: "pad_thai"),
     FoodItem(id: 8, name: "ราดหน้า", price: 30, image: "rad_na"),
